@@ -14,7 +14,6 @@ const displayPrice = document.querySelector(".display__price");
 const upArrow = document.querySelector(".fa-sort-up");
 const downArrow = document.querySelector(".fa-sort-down");
 const cartItem = document.querySelector(".cart__item");
-
 // another list
 let url2 = "http://localhost:3000/cartedData";
 // classes
@@ -87,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                                                     .then((res) => {
                                                         res.data.forEach((sin) => {
                                                             let image = sin.image;
-                                                            let price = sin.price;
+                                                            // let price = sin.price;
                                                             let amount = sin.amount;
                                                             let name = sin.name;
                                                             let id = sin.id
@@ -114,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                                                             aside.style.visibility = "visible";
                                                             aside.style.transform = "translateX(0)";
                                                             this.innerText = "In Cart";
-                                                            this.disabled = true;
+                                                            this.disabled = true
                                                         });
                                                         // setting items
                                                     })
@@ -144,40 +143,43 @@ document.addEventListener("DOMContentLoaded", function (e) {
                         button.innerText = "In Cart";
                         button.disabled = true;
                         // showing carted data
+
                         let name = sin.name;
                         let price = sin.price;
                         let id = sin.id;
                         let image = sin.image;
                         let amount = sin.amount;
-
                         let cart__item = document.createElement("div");
                         cart__item.className = `cart__item ${id}`;
                         cart__item.innerHTML = `
-            <div class="cart__image">
-            <img src=${image} alt="">
-            </div>
-            <div class="cart__desc"
-            <h5>${name}</h5>
-            </div>
-            <div class="cart__count">
-            <span class='remove-data'><i class="fasfa-times-circle"></i></span>
-            <i class="fas fa-sort-up"></i>
-            <span>${amount}</span>
-            <i class="fas fa-sort-down"></i>
-            </div>
-            `;
+                            <div class="cart__image">
+                            <img src=${image} alt="">
+                            </div>
+                            <div class="cart__desc"
+                            <h5>${name}</h5>
+                            </div>
+                            <div class="cart__count">
+                            <span class='remove-data'><i class="fas fa-times-circle"></i></span>
+                            <i class="fas fa-sort-up"></i>
+                            <span>${amount}</span>
+                            <i class="fas fa-sort-down"></i>
+                            </div>
+                            `;
                         cart.insertAdjacentElement("afterbegin", cart__item);
-                        let child = cart.children
-                        for (let i = 0; i < child.length - 1; i++) {
-                            let classes = child[i].classList
-                            //?starting from here 
-                            //! problem == when clicking the card it duplicates.
-                        }
-                    });
+                    })
+
                 })
                 .catch((err) => {
                     console.log(err);
                 });
+        }).then(() => {
+            axios.get(url2)
+                .then(res => {
+                    res.data.forEach(sin => {
+                        let closeBtn = document.getElementsByClassName(sin.id)
+                        console.log(closeBtn)
+                    })
+                })
         })
         .catch((err) => {
             console.log(err);
@@ -193,82 +195,3 @@ aside_close.addEventListener("click", function (e) {
     aside.classList.remove("open");
 });
 // single button
-
-/**
- * 1.------
- * let cart__item = document.createElement('div')
-                                            cart__item.className = 'cart__item'
-                                            cart__item.innerHTML = outPut
-                                            cart.insertAdjacentElement('afterbegin', cart__item)
-                                            aside.style.visibility = "visible";
-                                            aside.style.transform = "translateX(0)";
- * 2.---
-    axios.post(url2, data)
-            .then(res => {
-                console.log(res.data.id)
-                res.data.forEach(sin => {
-                    let image = sin.image
-                    let price = sin.price
-                    let amount = sin.amount
-                    let name = sin.name
-                    outPut += `
-                    <div class="cart__image">
-                    <img src=${image} alt="">
-                    </div>
-                    <div class="cart__desc">
-                    <h5>${name}</h5>
-                    </div>
-                    <div class="cart__count">
-                    <span class='remove-data'><i class="fas fa-times-circle"></i></span>
-                    <i class="fas fa-sort-up"></i>
-                    <span>${amount}</span>
-                    <i class="fas fa-sort-down"></i>
-                    </div>
-                    `
-                    console.log(outPut)
-                })
-            }
-            ).catch(err => {
-                console.log(err)
-            })
-
- */
-
-// let outPut = add1.getData(sin)
-// let cart__item = document.createElement('div')
-// cart__item.className = 'cart__item'
-// cart__item.innerHTML = outPut
-// cart.insertAdjacentElement('afterbegin', cart__item)
-// // aside styling
-// aside.style.visibility = "visible";
-// aside.style.transform = "translateX(0)";
-// // reassigning button value
-
-/**
- * 1.---
- * let sin = res.data
-                                                    let image = sin.image
-                                                    let price = sin.price
-                                                    let amount = sin.amount
-                                                    let name = sin.name
-                                                    console.log(name)
-                                                    let cart__item = document.createElement('div')
-                                                    cart__item.className = 'cart__item'
-                                                    cart__item.innerHTML = `
-                                                        <div class="cart__image">
-                                                        <img src=${image} alt="">
-                                                        </div>
-                                                        <div class="cart__desc">
-                                                        <h5>${name}</h5>
-                                                        </div>
-                                                        <div class="cart__count">
-                                                        <span class='remove-data'><i class="fas fa-times-circle"></i></span>
-                                                        <i class="fas fa-sort-up"></i>
-                                                        <span>${amount}</span>
-                                                        <i class="fas fa-sort-down"></i>
-                                                        </div>
-                                                        `
-                                                    cart.insertAdjacentElement('afterbegin', cart__item)
-                                                    aside.style.visibility = "visible";
-                                                    aside.style.transform = "translateX(0)";
- */
